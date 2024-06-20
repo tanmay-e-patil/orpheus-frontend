@@ -11,7 +11,7 @@ import {APP_NAME} from "../constants/strings";
 const SignIn = () => {
     const [form, setForm] = useState({
         email: '',
-        passoword: ''
+        password: ''
     })
 
     const [isSubmitting, setIsSubmitting] = useState(false)
@@ -27,7 +27,7 @@ const SignIn = () => {
 
                     <Text className="text-2xl text-white text-semibold mt-10 font-psemibold">Log in to {APP_NAME}</Text>
                     <FormField title="Email" value={form.email} handleChangeText={(e) => setForm({ ...form, email: e })} otherStyles="mt-7" keyboardType="email-address"></FormField>
-                    <FormField title="Password" value={form.passoword} handleChangeText={(e) => setForm({ ...form, passoword: e })} otherStyles="mt-7" keyboardType="password"></FormField>
+                    <FormField title="Password" value={form.password} handleChangeText={(e) => setForm({ ...form, password: e })} otherStyles="mt-7" keyboardType="password"></FormField>
                     <CustomButton title="Sign In" handlePress={submit} containerStyles="mt-7" isLoading={isSubmitting}></CustomButton>
                     <View className="justify-center pt-5 flex-row gap-2">
                         <Text className="text-lg text-gray-100 font-pregular">Don't have an account</Text>
