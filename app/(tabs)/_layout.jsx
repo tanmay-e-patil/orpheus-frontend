@@ -38,15 +38,15 @@ const TabsLayout = () => {
                 }
             }}>
                 <Tabs.Screen
-                    name="home"
+                    name="library"
                     options={{
-                        title: "Home",
+                        title: "Library",
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
                                 icon={icons.home}
                                 color={color}
-                                name="Home"
+                                name="Library"
                                 focused={focused}
                             />
                         ),
@@ -54,31 +54,15 @@ const TabsLayout = () => {
                 />
 
                 <Tabs.Screen
-                    name="bookmark"
+                    name="explore"
                     options={{
-                        title: "Bookmark",
+                        title: "Explore",
                         headerShown: false,
                         tabBarIcon: ({ color, focused }) => (
                             <TabIcon
                                 icon={icons.bookmark}
                                 color={color}
-                                name="Bookmark"
-                                focused={focused}
-                            />
-                        ),
-                    }}
-                />
-
-                <Tabs.Screen
-                    name="create"
-                    options={{
-                        title: "Create",
-                        headerShown: false,
-                        tabBarIcon: ({ color, focused }) => (
-                            <TabIcon
-                                icon={icons.plus}
-                                color={color}
-                                name="Create"
+                                name="Explore"
                                 focused={focused}
                             />
                         ),

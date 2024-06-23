@@ -1,21 +1,49 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import {View, Text, ScrollView, Image, Alert} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../constants'
 import FormField from '../components/FormField'
 import { useState } from 'react'
 import CustomButton from '../components/CustomButton'
-import { Link } from 'expo-router'
-import {APP_NAME} from "../constants/strings";
+import {Link, router} from 'expo-router'
+import {APP_NAME, LOGIN_API_URL} from "../constants/strings";
 
 const SignIn = () => {
+
     const [form, setForm] = useState({
         email: '',
         password: ''
     })
 
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const submit = () => { }
+    const submit = async () => {
+        if (!form.email || !form.password) {
+            Alert.alert("Error! Please fill in all fields")
+        }
+        setIsSubmitting(true)
+        try {
+            const response = await fetch(LOGIN_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    password: form.password,
+                    email: form.email,
+                }),
+            });
+            if (!response.ok) {
+                Alert.alert("Error! Sign in failed")
+            }
+
+            router.replace("/library")
+
+        } catch (e) {
+            Alert.alert('ERROR: ', e.message)
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView>

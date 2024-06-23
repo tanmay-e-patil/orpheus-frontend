@@ -1,22 +1,50 @@
-import { View, Text, ScrollView, Image } from 'react-native'
+import {View, Text, ScrollView, Image, Alert} from 'react-native'
 import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { images } from '../constants'
 import FormField from '../components/FormField'
 import { useState } from 'react'
 import CustomButton from '../components/CustomButton'
-import { Link } from 'expo-router'
-import {APP_NAME} from "../constants/strings";
+import {Link, router} from 'expo-router'
+import {APP_NAME, SIGN_UP_API_URL} from "../constants/strings";
 
 const SignUp = () => {
     const [form, setForm] = useState({
         username: '',
         email: '',
-        passoword: ''
+        password: ''
     })
 
     const [isSubmitting, setIsSubmitting] = useState(false)
-    const submit = () => { }
+
+    const submit = async () => {
+        if (!form.email || !form.password || !form.username) {
+            Alert.alert("Error! Please fill in all fields")
+        }
+        setIsSubmitting(true)
+        try {
+            const response = await fetch(SIGN_UP_API_URL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: form.username,
+                    password: form.password,
+                    email: form.email,
+                }),
+            });
+            if (!response.ok) {
+               Alert.alert("Error! Sign up failed")
+            }
+            router.replace("/home")
+
+        } catch (e) {
+            Alert.alert('ERROR', e.message)
+        } finally {
+            setIsSubmitting(false)
+        }
+    }
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView>
@@ -29,7 +57,7 @@ const SignUp = () => {
                     <FormField title="Username" value={form.username} handleChangeText={(e) => setForm({ ...form, username: e })} otherStyles="mt-10"></FormField>
 
                     <FormField title="Email" value={form.email} handleChangeText={(e) => setForm({ ...form, email: e })} otherStyles="mt-7" keyboardType="email-address"></FormField>
-                    <FormField title="Password" value={form.passoword} handleChangeText={(e) => setForm({ ...form, passoword: e })} otherStyles="mt-7" keyboardType="password"></FormField>
+                    <FormField title="Password" value={form.password} handleChangeText={(e) => setForm({ ...form, password: e })} otherStyles="mt-7" keyboardType="password"></FormField>
                     <CustomButton title="Sign Up" handlePress={submit} containerStyles="mt-7" isLoading={isSubmitting}></CustomButton>
                     <View className="justify-center pt-5 flex-row gap-2">
                         <Text className="text-lg text-gray-100 font-pregular">Have an account already?</Text>

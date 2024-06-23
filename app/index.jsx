@@ -4,7 +4,7 @@ import { Redirect, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from './constants';
 import CustomButton from './components/CustomButton';
-import {APP_NAME} from "./constants/strings";
+import {APP_NAME, LANDING_SLOGAN, LANDING_SLOGAN_DESC} from "./constants/strings";
 import React from "react";
 
 export default function App() {
@@ -21,14 +21,14 @@ export default function App() {
 
                     <View className="relative mt-5">
                         <Text className="text-3xl text-white font-bold text-center">
-                            Experience Music Like Never Before
+                            {LANDING_SLOGAN}
                         </Text>
                     </View>
 
-                    <Text className="text=sm font-pregular text-gray-100 mt-7 text-center">Discover new music tailored to your taste</Text>
+                    <Text className="text=sm font-pregular text-gray-100 mt-7 text-center">{LANDING_SLOGAN_DESC}</Text>
                     <CustomButton
                         title="Continue with Email"
-                        handlePress={() => { router.push('/sign-in') }}
+                        handlePress={() => { router.push('/library') }}
                         containerStyles="w-full mt-7" />
                 </View>
             </ScrollView>
