@@ -28,7 +28,7 @@ const Explore = () => {
                                   </View>
 
                               </View>
-                              <SearchInput />
+                              <SearchInput placeholder="Search for new songs, artists, albums"/>
                               <View className="w-full flex-1 "></View>
                           </View>
                       )}
