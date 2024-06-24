@@ -37,3 +37,6 @@ yarn-error.*
 
 # Intellij
 .idea/
+
+# dummy files
+app/constants/spotify_search_data.js
