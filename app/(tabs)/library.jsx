@@ -34,8 +34,6 @@ const Library = () => {
             >
 
             </FlatList>
-            <Image source={{uri: 'https://i.scdn.co/image/ab67616d0000b2732171d881249eead67b583d56'}} resizeMode="contain" className="w-20 h-20"></Image>
-
         </SafeAreaView>
     )
 }
