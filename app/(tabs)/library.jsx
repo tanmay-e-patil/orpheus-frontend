@@ -19,12 +19,11 @@ const Library = () => {
                                           resizeMode="contain"></Image>
                                       <View className="flex-col justify-center">
                                           <Text numberOfLines={1} className="w-48 font-psemibold text-white px-4">{item.name}</Text>
-                                          {/*<Text numberOfLines={1} className="w-48 font-pregular text-white px-4">{getArtistNames(item.artists)}</Text>*/}
                                       </View>
 
 
                                   </View>
-                                 
+
 
 
 
