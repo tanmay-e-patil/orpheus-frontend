@@ -4,7 +4,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 import {images} from "../constants";
 import {Image} from "react-native";
 import SearchInput from "../components/SearchInput";
-import {SPOTIFY_SEARCH_DATA} from "../constants/spotify_search_data";
+import {SPOTIFY_SEARCH_DATA} from "../constants/dummy_data/spotify_search_data";
 import {icons} from "../constants";
 
 const CLIENT_ID = process.env["CLIENT_ID"];

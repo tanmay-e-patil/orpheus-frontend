@@ -39,4 +39,4 @@ yarn-error.*
 .idea/
 
 # dummy files
-app/constants/spotify_search_data.js
+app/constants/dummy_data/
