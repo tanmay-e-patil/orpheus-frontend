@@ -24,10 +24,7 @@ const Library = () => {
 
 
                                   </View>
-                                  <TouchableOpacity className="justify-center">
-                                      <Image source={icons.plus} className="w-12 h-12 p-2 mx-8" resizeMode="contain"></Image>
-                                  </TouchableOpacity>
-
+                                 
 
 
 
