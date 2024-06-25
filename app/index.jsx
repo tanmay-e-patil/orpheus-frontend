@@ -5,9 +5,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { images } from './constants';
 import CustomButton from './components/CustomButton';
 import {APP_NAME, LANDING_SLOGAN, LANDING_SLOGAN_DESC} from "./constants/strings";
-import React from "react";
+import React, {useEffect} from "react";
+import {useAuth} from "./context/AuthContext";
 
 export default function App() {
+    const {authState} = useAuth()
+
+    useEffect(() => {
+        if (authState.authenticated) {
+            console.log(authState)
+            router.replace("/library")
+        }
+    }, [authState]);
+
+
     return (
         <SafeAreaView className="bg-primary h-full">
             <ScrollView contentContainerStyle={{ height: '100%' }}>
@@ -28,7 +39,7 @@ export default function App() {
                     <Text className="text=sm font-pregular text-gray-100 mt-7 text-center">{LANDING_SLOGAN_DESC}</Text>
                     <CustomButton
                         title="Continue with Email"
-                        handlePress={() => { router.push('/library') }}
+                        handlePress={() => { router.push('/sign-in') }}
                         containerStyles="w-full mt-7" />
                 </View>
             </ScrollView>

@@ -7,6 +7,7 @@ import { useState } from 'react'
 import CustomButton from '../components/CustomButton'
 import {Link, router} from 'expo-router'
 import {APP_NAME, LOGIN_API_URL} from "../constants/strings";
+import {useAuth} from "../context/AuthContext";
 
 const SignIn = () => {
 
@@ -16,27 +17,18 @@ const SignIn = () => {
     })
 
     const [isSubmitting, setIsSubmitting] = useState(false)
+
+    const {onLogin} = useAuth()
     const submit = async () => {
         if (!form.email || !form.password) {
             Alert.alert("Error! Please fill in all fields")
         }
         setIsSubmitting(true)
         try {
-            const response = await fetch(LOGIN_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    password: form.password,
-                    email: form.email,
-                }),
-            });
-            if (!response.ok) {
-                Alert.alert("Error! Sign in failed")
-            }
-
+            await onLogin(form.email, form.password)
             router.replace("/library")
+
+
 
         } catch (e) {
             Alert.alert('ERROR: ', e.message)

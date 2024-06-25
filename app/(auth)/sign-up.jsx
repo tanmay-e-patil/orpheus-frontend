@@ -7,6 +7,7 @@ import { useState } from 'react'
 import CustomButton from '../components/CustomButton'
 import {Link, router} from 'expo-router'
 import {APP_NAME, SIGN_UP_API_URL} from "../constants/strings";
+import {useAuth} from "../context/AuthContext";
 
 const SignUp = () => {
     const [form, setForm] = useState({
@@ -14,6 +15,8 @@ const SignUp = () => {
         email: '',
         password: ''
     })
+
+    const {onRegister} = useAuth()
 
     const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -23,21 +26,13 @@ const SignUp = () => {
         }
         setIsSubmitting(true)
         try {
-            const response = await fetch(SIGN_UP_API_URL, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    username: form.username,
-                    password: form.password,
-                    email: form.email,
-                }),
-            });
+            const response = await onRegister(form.email, form.username, form.password)
             if (!response.ok) {
                Alert.alert("Error! Sign up failed")
+            } else {
+                router.replace("/")
             }
-            router.replace("/home")
+
 
         } catch (e) {
             Alert.alert('ERROR', e.message)
