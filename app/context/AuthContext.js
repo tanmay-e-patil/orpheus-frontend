@@ -1,8 +1,10 @@
 import React, {createContext, useState, useEffect, useContext} from 'react';
 import * as Keychain from 'react-native-keychain';
 import axios from 'axios';
-import {ACCESS_TOKEN_KEY, BASE_URL, LOGIN_API_URL, SIGN_UP_API_URL} from "../constants/strings";
+import {ACCESS_TOKEN_KEY, BASE_URL, LOGIN_API_URL, ME_API_URL, SIGN_UP_API_URL} from "../constants/strings";
 import * as SecureStore from "expo-secure-store";
+import {router} from "expo-router";
+import {Alert} from "react-native";
 
 export const AuthContext = createContext({});
 
@@ -35,7 +37,33 @@ export const AuthProvider = ({children}) => {
                 })
             }
         }
-        loadToken().then(r => console.log("Loading token"))
+
+        const getUser = async () => {
+            try {
+                console.log(axios.defaults.headers.common['Authorization'])
+                const response = await axios.get(ME_API_URL, {
+                    withCredentials: true
+                })
+                console.log(response)
+                setUser({
+                    username: response.data.username,
+                    email: response.data.email,
+                    userId: response.data.id
+                })
+
+            } catch (e) {
+                Alert.alert('ERROR: ', e.message)
+            } finally {
+                console.log("Done fetching user")
+            }
+
+        }
+        loadToken().then(r => {
+            getUser().then(r => console.log("Fetching user"))
+            console.log("Loading token")
+        })
+
+
     }, []);
 
     const register = async (email, username, password) => {

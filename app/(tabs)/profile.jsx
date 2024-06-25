@@ -9,6 +9,7 @@ import {SafeAreaView} from "react-native-safe-area-context";
 const Profile = () => {
     const {user, onLogout} = useAuth()
     const [isSubmitting, setIsSubmitting] = useState(false)
+    console.log(user)
 
 
     const submit = async () => {
