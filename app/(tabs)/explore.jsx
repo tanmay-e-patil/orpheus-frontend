@@ -7,6 +7,7 @@ import SearchInput from "../components/SearchInput";
 import {SPOTIFY_SEARCH_DATA} from "../constants/dummy_data/spotify_search_data";
 import {icons} from "../constants";
 import AudioSourceModal from "../components/AudioSourceModal";
+import {YOUTUBE_SEARCH_DATA} from "../constants/dummy_data/youtube_search_data";
 
 const CLIENT_ID = process.env["CLIENT_ID"];
 const CLIENT_SECRET = process.env["CLIENT_SECRET"];
@@ -85,6 +86,13 @@ const Explore = () => {
 
     const [modalVisible, setModalVisible] = useState(false);
 
+    function closeAudioSourceModal() {
+        setModalVisible(false)
+    }
+
+    const yt = YOUTUBE_SEARCH_DATA
+
+
     return (<SafeAreaView className="bg-primary w-full h-full ">
             <View className="mx-2">
 
@@ -151,7 +159,7 @@ const Explore = () => {
                     }}>
                     <SafeAreaProvider>
                         <SafeAreaView className="bg-primary w-full h-full">
-                            <AudioSourceModal></AudioSourceModal>
+                            <AudioSourceModal ytSearchData={YOUTUBE_SEARCH_DATA} closeAudioSourceModal={closeAudioSourceModal}></AudioSourceModal>
 
                         </SafeAreaView>
                     </SafeAreaProvider>

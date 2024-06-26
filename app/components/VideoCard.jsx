@@ -1,10 +1,23 @@
-import {Stylesheet, Text, View} from 'react-native'
+import {Image, Stylesheet, Text, View} from 'react-native'
 import React from 'react'
 
 const VideoCard = ({video:{title, thumbnail, creator}}) => {
     return (
         <View>
-            <Text>{title}</Text>
+            <View className="flex-row w-full my-2">
+                <Image
+                    source={{uri: thumbnail}}
+                    className="w-full h-36 aspect-video"
+                    resizeMode=""></Image>
+
+
+            </View>
+            <View className="flex-col justify-start w-full">
+                <Text numberOfLines={2}
+                      className="w-full font-psemibold text-white px-4 text-lg">{title}</Text>
+                <Text numberOfLines={1}
+                      className="w-48 font-pregular text-white px-4">{creator}</Text>
+            </View>
         </View>
     )
 }
