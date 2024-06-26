@@ -90,8 +90,27 @@ const Explore = () => {
         setModalVisible(false)
     }
 
-    const yt = YOUTUBE_SEARCH_DATA
+    function addVideoDetailsToSongObject(videoId, videoDuration) {
+        setSong(prev => ({
+            ...prev,
+            yt_song_video_id: videoId,
+            yt_song_duration: videoDuration
+        }));
+    }
 
+    const [song, setSong] = useState({
+        spotify_song_id: '',
+        spotify_song_name: '',
+        spotify_song_artist: '',
+        yt_song_duration: '',
+        spotify_song_album_art_url: '',
+        yt_song_video_id: ''
+
+    })
+
+    useEffect(() => {
+        console.log(song)
+    }, [song]);
 
     return (<SafeAreaView className="bg-primary w-full h-full ">
             <View className="mx-2">
@@ -113,6 +132,12 @@ const Explore = () => {
 
                                   </View>
                                   <TouchableOpacity className="justify-center" onPress={() => {
+                                      setSong({
+                                          spotify_song_id: item.id.toString(),
+                                          spotify_song_name: item.name.toString(),
+                                          spotify_song_album_art_url: item.album.images[0].url,
+                                          spotify_song_artist: getArtistNames(item.artists)
+                                      })
                                       setModalVisible(true)
                                   }}>
                                       <Image source={icons.plus} className="w-12 h-12 p-2 mx-8"
@@ -159,7 +184,7 @@ const Explore = () => {
                     }}>
                     <SafeAreaProvider>
                         <SafeAreaView className="bg-primary w-full h-full">
-                            <AudioSourceModal ytSearchData={YOUTUBE_SEARCH_DATA} closeAudioSourceModal={closeAudioSourceModal}></AudioSourceModal>
+                            <AudioSourceModal ytSearchData={YOUTUBE_SEARCH_DATA} closeAudioSourceModal={closeAudioSourceModal} addVideoDetailsToSongObject={addVideoDetailsToSongObject}></AudioSourceModal>
 
                         </SafeAreaView>
                     </SafeAreaProvider>
