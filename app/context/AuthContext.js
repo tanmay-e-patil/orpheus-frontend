@@ -29,22 +29,25 @@ export const AuthProvider = ({children}) => {
         const loadToken = async () => {
             const token = await SecureStore.getItemAsync(ACCESS_TOKEN_KEY)
             console.log("stored: ", token)
-            if (token) {
-                axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
-                setAuthState({
-                    token: token,
-                    authenticated: true
-                })
-            }
+            return token
         }
 
         const getUser = async () => {
             try {
+                const token = await loadToken()
+                if (token) {
+                    axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+                }
                 console.log(axios.defaults.headers.common['Authorization'])
                 const response = await axios.get(ME_API_URL, {
                     withCredentials: true
                 })
-                console.log(response)
+
+                setAuthState({
+                    token: token,
+                    authenticated: true
+                })
+
                 setUser({
                     username: response.data.username,
                     email: response.data.email,
@@ -53,15 +56,13 @@ export const AuthProvider = ({children}) => {
 
             } catch (e) {
                 Alert.alert('ERROR: ', e.message)
+                await logout()
             } finally {
                 console.log("Done fetching user")
             }
 
         }
-        loadToken().then(r => {
-            getUser().then(r => console.log("Fetching user"))
-            console.log("Loading token")
-        })
+        getUser().then(r => console.log("Fetched user"))
 
 
     }, []);
