@@ -44,7 +44,7 @@ const AudioSourceModal = ({ytSearchData, closeAudioSourceModal, addVideoDetailsT
         <View className="mx-2 mt-4">
             <FlatList data={ytSearchData.items} keyExtractor={(item) => item.id.videoId.toString()}
                       renderItem={({item}) => (
-                          <TouchableOpacity className="py-2" onPress={() => {
+                          <TouchableOpacity className="py-2" onPress={async () => {
                               addVideoDetailsToSongObject(item.id.videoId.toString(), getSongDuration(item.id.videoId.toString()))
                               closeAudioSourceModal()
                           }}>

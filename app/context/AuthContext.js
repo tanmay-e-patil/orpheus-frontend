@@ -37,6 +37,10 @@ export const AuthProvider = ({children}) => {
                 const token = await loadToken()
                 if (token) {
                     axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+                } else {
+                    console.log("Logging out as token not found")
+                    await logout()
+                    return
                 }
                 console.log(axios.defaults.headers.common['Authorization'])
                 const response = await axios.get(ME_API_URL, {
@@ -55,7 +59,6 @@ export const AuthProvider = ({children}) => {
                 })
 
             } catch (e) {
-                Alert.alert('ERROR: ', e.message)
                 await logout()
             } finally {
                 console.log("Done fetching user")
@@ -137,6 +140,8 @@ export const AuthProvider = ({children}) => {
             email: '',
             userId: ''
         })
+
+        router.replace("/")
     }
 
     const value = {

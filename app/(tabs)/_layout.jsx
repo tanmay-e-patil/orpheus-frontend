@@ -1,8 +1,9 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import { Tabs, Redirect } from 'expo-router'
+import {Tabs, Redirect, router} from 'expo-router'
 import { icons } from '../constants'
 import {StatusBar} from "expo-status-bar";
+import {useAuth} from "../context/AuthContext";
 
 const TabIcon = ({ icon, color, name, focused }) => {
     return (
@@ -25,6 +26,10 @@ const TabIcon = ({ icon, color, name, focused }) => {
 
 
 const TabsLayout = () => {
+    const {authState, user} = useAuth()
+    if (!authState.authenticated || user.userId === '') {
+        router.replace('/')
+    }
     return (
         <>
             <Tabs screenOptions={{

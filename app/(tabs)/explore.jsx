@@ -1,4 +1,4 @@
-import {FlatList, Modal, Text, TouchableOpacity, View} from 'react-native'
+import {Alert, FlatList, Modal, Text, TouchableOpacity, View} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
 import {images} from "../constants";
@@ -8,6 +8,8 @@ import {SPOTIFY_SEARCH_DATA} from "../constants/dummy_data/spotify_search_data";
 import {icons} from "../constants";
 import AudioSourceModal from "../components/AudioSourceModal";
 import {YOUTUBE_SEARCH_DATA} from "../constants/dummy_data/youtube_search_data";
+import axios from "axios";
+import {LOGIN_API_URL, SONGS_API_URL} from "../constants/strings";
 
 const CLIENT_ID = process.env["CLIENT_ID"];
 const CLIENT_SECRET = process.env["CLIENT_SECRET"];
@@ -90,110 +92,125 @@ const Explore = () => {
         setModalVisible(false)
     }
 
-    function addVideoDetailsToSongObject(videoId, videoDuration) {
-        setSong(prev => ({
-            ...prev,
-            yt_song_video_id: videoId,
-            yt_song_duration: videoDuration
-        }));
+    async function addVideoDetailsToSongObject(videoId, videoDuration) {
+        setSong(prev => {
+            const newState = { ...prev, yt_song_video_id: videoId, yt_song_duration: videoDuration };
+            console.log("New state:", newState);
+            return newState;
+        });
+
     }
 
     const [song, setSong] = useState({
-        spotify_song_id: '',
-        spotify_song_name: '',
-        spotify_song_artist: '',
-        yt_song_duration: '',
-        spotify_song_album_art_url: '',
-        yt_song_video_id: ''
-
     })
 
     useEffect(() => {
-        console.log(song)
+        const addToLibrary = async () => {
+            try {
+                const result = await axios.post(SONGS_API_URL, {
+                    song
+                })
+                Alert.alert("Song added to library")
+
+            } catch (e) {
+                Alert.alert("Failed to add song to library", e)
+            } finally {
+                setSong({
+
+                })
+            }
+        }
+        if (song.yt_song_duration !== undefined) {
+            console.log("yt_song_duration is not empty, making API call");
+            addToLibrary().then(r => console.log("Song ADDED"))
+        }
     }, [song]);
 
     return (<SafeAreaView className="bg-primary w-full h-full ">
-            <View className="mx-2">
+        <View className="mx-2">
 
-                <FlatList data={SPOTIFY_SEARCH_DATA.tracks.items} keyExtractor={(item) => item.id.toString()}
-                          renderItem={({item}) => (<View className="flex-row py-[2px] justify-between">
-                                  <View className="flex-row flex-1">
-                                      <Image
-                                          source={{uri: item.album.images[0].url}}
-                                          className="p-12"
-                                          resizeMode="contain"></Image>
-                                      <View className="flex-col justify-center">
-                                          <Text numberOfLines={1}
-                                                className="w-48 font-psemibold text-white px-4">{item.name}</Text>
-                                          <Text numberOfLines={1}
-                                                className="w-48 font-pregular text-white px-4">{getArtistNames(item.artists)}</Text>
-                                      </View>
-
-
+            <FlatList data={SPOTIFY_SEARCH_DATA.tracks.items} keyExtractor={(item) => item.id.toString()}
+                      renderItem={({item}) => (<View className="flex-row py-[2px] justify-between">
+                              <View className="flex-row flex-1">
+                                  <Image
+                                      source={{uri: item.album.images[0].url}}
+                                      className="p-12"
+                                      resizeMode="contain"></Image>
+                                  <View className="flex-col justify-center">
+                                      <Text numberOfLines={1}
+                                            className="w-48 font-psemibold text-white px-4">{item.name}</Text>
+                                      <Text numberOfLines={1}
+                                            className="w-48 font-pregular text-white px-4">{getArtistNames(item.artists)}</Text>
                                   </View>
-                                  <TouchableOpacity className="justify-center" onPress={() => {
-                                      setSong({
-                                          spotify_song_id: item.id.toString(),
-                                          spotify_song_name: item.name.toString(),
-                                          spotify_song_album_art_url: item.album.images[0].url,
-                                          spotify_song_artist: getArtistNames(item.artists)
-                                      })
-                                      setModalVisible(true)
-                                  }}>
-                                      <Image source={icons.plus} className="w-12 h-12 p-2 mx-8"
-                                             resizeMode="contain"></Image>
-                                  </TouchableOpacity>
 
 
                               </View>
-
-                          )}
-                          ListHeaderComponent={() => (<View className="my-6 pr-4 space-y-6">
-                                  <View className="justify-between items-start flex-row w-full">
-
-                                      <View>
-                                          <Image source={images.logoSmall} className="w-9 h-10 mr-4 my-2"
-                                                 resizeMode="contain"></Image>
-                                      </View>
-                                      <View className="flex-1">
-                                          <SearchInput placeholder="Search for new songs, artists, albums"
-                                                       onSearch={(event) => {
-
-                                                           console.log("searching", event.nativeEvent.text);
-                                                           setQuery(event.nativeEvent.text);
-                                                       }} className="p-8"/>
-
-                                      </View>
+                              <TouchableOpacity className="justify-center" onPress={() => {
+                                  setSong({
+                                      spotify_song_id: item.id.toString(),
+                                      spotify_song_name: item.name.toString(),
+                                      spotify_song_album: item.album.name.toString(),
+                                      spotify_song_album_art_url: item.album.images[0].url,
+                                      spotify_song_artist: getArtistNames(item.artists)
+                                  })
+                                  setModalVisible(true)
+                              }}>
+                                  <Image source={icons.plus} className="w-12 h-12 p-2 mx-8"
+                                         resizeMode="contain"></Image>
+                              </TouchableOpacity>
 
 
-                                  </View>
+                          </View>
 
-                                  <View className="w-full flex-1 "></View>
-                              </View>)}
-                >
+                      )}
+                      ListHeaderComponent={() => (<View className="my-6 pr-4 space-y-6">
+                          <View className="justify-between items-start flex-row w-full">
 
-                </FlatList>
+                              <View>
+                                  <Image source={images.logoSmall} className="w-9 h-10 mr-4 my-2"
+                                         resizeMode="contain"></Image>
+                              </View>
+                              <View className="flex-1">
+                                  <SearchInput placeholder="Search for new songs, artists, albums"
+                                               onSearch={(event) => {
 
-                <Modal
-                    animationType="slide"
-                    transparent={false}
-                    visible={modalVisible}
-                    contentLabel="Select audio source"
-                    onRequestClose={() => {
-                        setModalVisible(!modalVisible);
-                    }}>
-                    <SafeAreaProvider>
-                        <SafeAreaView className="bg-primary w-full h-full">
-                            <AudioSourceModal ytSearchData={YOUTUBE_SEARCH_DATA} closeAudioSourceModal={closeAudioSourceModal} addVideoDetailsToSongObject={addVideoDetailsToSongObject}></AudioSourceModal>
+                                                   console.log("searching", event.nativeEvent.text);
+                                                   setQuery(event.nativeEvent.text);
+                                               }} className="p-8"/>
 
-                        </SafeAreaView>
-                    </SafeAreaProvider>
+                              </View>
 
 
-                </Modal>
-            </View>
+                          </View>
 
-        </SafeAreaView>)
+                          <View className="w-full flex-1 "></View>
+                      </View>)}
+            >
+
+            </FlatList>
+
+            <Modal
+                animationType="slide"
+                transparent={false}
+                visible={modalVisible}
+                contentLabel="Select audio source"
+                onRequestClose={() => {
+                    setModalVisible(!modalVisible);
+                }}>
+                <SafeAreaProvider>
+                    <SafeAreaView className="bg-primary w-full h-full">
+                        <AudioSourceModal ytSearchData={YOUTUBE_SEARCH_DATA}
+                                          closeAudioSourceModal={closeAudioSourceModal}
+                                          addVideoDetailsToSongObject={addVideoDetailsToSongObject}></AudioSourceModal>
+
+                    </SafeAreaView>
+                </SafeAreaProvider>
+
+
+            </Modal>
+        </View>
+
+    </SafeAreaView>)
 }
 
 export default Explore
