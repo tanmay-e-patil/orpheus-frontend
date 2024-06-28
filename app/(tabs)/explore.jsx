@@ -1,18 +1,16 @@
-import {Alert, FlatList, Modal, Text, TouchableOpacity, View} from 'react-native'
+import {Alert, FlatList, Image, Modal, Text, TouchableOpacity, View} from 'react-native'
 import React, {useEffect, useState} from 'react'
 import {SafeAreaProvider, SafeAreaView} from "react-native-safe-area-context";
-import {images} from "../constants";
-import {Image} from "react-native";
+import {icons, images} from "../constants";
 import SearchInput from "../components/SearchInput";
 import {SPOTIFY_SEARCH_DATA} from "../constants/dummy_data/spotify_search_data";
-import {icons} from "../constants";
 import AudioSourceModal from "../components/AudioSourceModal";
 import {YOUTUBE_SEARCH_DATA} from "../constants/dummy_data/youtube_search_data";
 import axios from "axios";
-import {LOGIN_API_URL, SONGS_API_URL} from "../constants/strings";
+import {SONGS_API_URL} from "../constants/strings";
 
-const CLIENT_ID = process.env["CLIENT_ID"];
-const CLIENT_SECRET = process.env["CLIENT_SECRET"];
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 
 const Explore = () => {
@@ -94,15 +92,14 @@ const Explore = () => {
 
     async function addVideoDetailsToSongObject(videoId, videoDuration) {
         setSong(prev => {
-            const newState = { ...prev, yt_song_video_id: videoId, yt_song_duration: videoDuration };
+            const newState = {...prev, yt_song_video_id: videoId, yt_song_duration: videoDuration};
             console.log("New state:", newState);
             return newState;
         });
 
     }
 
-    const [song, setSong] = useState({
-    })
+    const [song, setSong] = useState({})
 
     useEffect(() => {
         const addToLibrary = async () => {
@@ -115,9 +112,7 @@ const Explore = () => {
             } catch (e) {
                 Alert.alert("Failed to add song to library", e)
             } finally {
-                setSong({
-
-                })
+                setSong({})
             }
         }
         if (song.yt_song_duration !== undefined) {
