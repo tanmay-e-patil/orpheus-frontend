@@ -35,21 +35,21 @@ const Library = () => {
   return (
     <SafeAreaView className="bg-primary w-full h-full ">
       <View className="mx-2 h-full">
-        <FlatList data={library} keyExtractor={(item) => item.ID}
+        <FlatList data={library} keyExtractor={(item) => item.id}
                   renderItem={({ item }) => (
                     <View className="flex-row py-[2px] justify-between">
                       <View className="flex-row flex-1">
                         <Image
-                          source={{ uri: item.AlbumArt }}
+                          source={{ uri: item.album_art }}
                           className="p-12"
                           resizeMode="contain"></Image>
                         <View className="flex-col justify-center">
                           <Text numberOfLines={1}
-                                className="w-48 font-psemibold text-lg text-white px-4">{item.Name}</Text>
+                                className="w-48 font-psemibold text-lg text-white px-4">{item.name}</Text>
                           <Text numberOfLines={1}
-                                className="w-48 font-pregular text-sm text-gray-100 px-4">{item.ArtistName}</Text>
+                                className="w-48 font-pregular text-sm text-gray-100 px-4">{item.artist_name}</Text>
                           <Text numberOfLines={1}
-                                className="w-48 font-pregular text-sm text-gray-100 px-4">{item.Duration}</Text>
+                                className="w-48 font-pregular text-sm text-gray-100 px-4">{item.duration}</Text>
                         </View>
 
 
