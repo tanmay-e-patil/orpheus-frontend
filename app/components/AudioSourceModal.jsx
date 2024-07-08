@@ -31,8 +31,6 @@ const AudioSourceModal = ({ytSearchData, closeAudioSourceModal, addVideoDetailsT
     const ytVideosContentDetails = YOUTUBE_CONTENT_DETAILS_DATA
 
     const getSongDuration = (videoId) => {
-        // console.log(videoId)
-        // console.log(ytVideosContentDetails.items.filter(i => i.id === videoId)[0].contentDetails.duration)
 
         return iso8601DurationToString(ytVideosContentDetails.items.filter(i => i.id === videoId)[0].contentDetails.duration)
 

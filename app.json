@@ -5,24 +5,31 @@
     "scheme": "orpheus",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./app/assets/images/logo-small.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./app/assets/images/logo-small.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
     "ios": {
       "supportsTablet": true,
+      "infoPList": {
+        "UIBackgroundModes": [
+          "audio"
+        ]
+      },
       "config": {
         "useNonExemptEncryption": false
-      }
+      },
+      "bundleIdentifier": "com.tanmayep.orpheus"
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./app/assets/images/logo-small.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.tanmayep.orpheus"
     },
     "web": {
       "favicon": "./assets/favicon.png"

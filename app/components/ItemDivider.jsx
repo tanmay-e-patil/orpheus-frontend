@@ -3,7 +3,7 @@ import React from 'react';
 
 const ItemDivider = () => {
   return (
-    <View className="w-full my-[2px] bg-gray-700 h-[1px]">
+    <View className="w-full my-[2px] bg-gray-700 h-[1px] opacity-50">
     </View>
   );
 };
