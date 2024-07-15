@@ -32,7 +32,7 @@ export default function App() {
           </Image>
 
           <View className="relative mt-5">
-            <Text className="text-3xl text-white font-bold text-center">
+            <Text className="text-3xl text-white font-pbold text-center">
               {LANDING_SLOGAN}
             </Text>
           </View>

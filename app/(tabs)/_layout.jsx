@@ -1,9 +1,10 @@
 import { View, Text, Image } from 'react-native'
 import React from 'react'
-import {Tabs, Redirect, router} from 'expo-router'
+import { Tabs, Redirect, router } from 'expo-router'
 import { icons } from '../constants'
-import {StatusBar} from "expo-status-bar";
-import {useAuth} from "../context/AuthContext";
+import { StatusBar } from "expo-status-bar";
+import { useAuth } from "../context/AuthContext";
+import FloatingPlayer from '../components/FloatingPlayer';
 
 const TabIcon = ({ icon, color, name, focused }) => {
     return (
@@ -26,7 +27,7 @@ const TabIcon = ({ icon, color, name, focused }) => {
 
 
 const TabsLayout = () => {
-    const {authState, user} = useAuth()
+    const { authState, user } = useAuth()
     if (!authState.authenticated || user.userId === '') {
         router.replace('/')
     }
@@ -91,6 +92,7 @@ const TabsLayout = () => {
                     }}
                 />
             </Tabs>
+            <FloatingPlayer />
             <StatusBar backgroundColor='#161622' style='light'></StatusBar>
 
         </>
