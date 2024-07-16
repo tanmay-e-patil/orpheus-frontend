@@ -2,23 +2,34 @@ import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
 import { useActiveTrack } from 'react-native-track-player'
 import { PlayPauseButton, SkipToNextButton } from './PlayerControls';
+import useLastActiveTrack from '../hooks/useLastActiveTrack';
+import { useRouter } from 'expo-router';
 
 const FloatingPlayer = () => {
     const activeTrack = useActiveTrack()
+    const lastActiveTrack = useLastActiveTrack()
 
-    if (!activeTrack) {
+    const displayedTrack = activeTrack ?? lastActiveTrack
+
+    const router = useRouter()
+    const handlePress = () => {
+        router.navigate("/player")
+    }
+
+
+    if (!displayedTrack) {
         return null
     }
     return (
-        <TouchableOpacity className="absolute left-2 right-2 bottom-24 bg-gray-800 h-16 rounded-lg" >
+        <TouchableOpacity className="absolute left-2 right-2 bottom-24 bg-gray-800 h-16 rounded-lg" onPress={handlePress} >
             <View className="flex-row items-center  justify-between mt-2 mx-2">
                 <Image
-                    source={{ uri: activeTrack.artwork }}
+                    source={{ uri: displayedTrack.artwork }}
                     className="w-12 h-12 rounded-lg"
                     resizeMode="contain"></Image>
                 <View className="flex-col justify-center flex-1">
                     <Text numberOfLines={1}
-                        className="w-32 font-psemibold text-lg text-white px-4">{activeTrack.title}</Text>
+                        className="w-32 font-psemibold text-lg text-white px-4">{displayedTrack.title}</Text>
                 </View>
 
                 <View className="w-24 flex-row  justify-evenly items-center mx-2">

@@ -49,6 +49,13 @@ const RootLayout = () => {
         <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name="(auth)" options={{ headerShown: false }}></Stack.Screen>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }}></Stack.Screen>
+        <Stack.Screen name='player' options={{
+          headerShown: false,
+          presentation: 'card',
+          gestureEnabled: true,
+          gestureDirection: 'vertical',
+          animationDuration: 400
+        }}></Stack.Screen>
       </Stack>
     </AuthProvider>
   );
