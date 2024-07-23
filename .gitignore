@@ -42,3 +42,4 @@ yarn-error.*
 
 # dummy files
 app/constants/dummy_data/
+tsconfig.json

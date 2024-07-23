@@ -4,6 +4,7 @@ import { useFonts } from 'expo-font';
 import { AuthProvider } from './context/AuthContext';
 import { useSetupTrackPlayer } from './hooks/useSetupTrackPlayer';
 import { useLogTrackPlayerState } from './hooks/useLogTrackPlayerState';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -44,19 +45,24 @@ const RootLayout = () => {
   }
 
   return (
+
     <AuthProvider>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen name="(auth)" options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }}></Stack.Screen>
-        <Stack.Screen name='player' options={{
-          headerShown: false,
-          presentation: 'card',
-          gestureEnabled: true,
-          gestureDirection: 'vertical',
-          animationDuration: 400
-        }}></Stack.Screen>
-      </Stack>
+      <GestureHandlerRootView>
+
+
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
+          <Stack.Screen name="(auth)" options={{ headerShown: false }}></Stack.Screen>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }}></Stack.Screen>
+          <Stack.Screen name='player' options={{
+            headerShown: false,
+            presentation: 'card',
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            animationDuration: 400
+          }}></Stack.Screen>
+        </Stack>
+      </GestureHandlerRootView>
     </AuthProvider>
   );
 };

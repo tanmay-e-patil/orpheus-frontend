@@ -2,6 +2,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import React from 'react'
 import TrackPlayer, { useIsPlaying } from 'react-native-track-player'
 import { FontAwesome6 } from '@expo/vector-icons'
+import { PlayerRepeatToggle } from './PlayerRepeatToggle'
 
 export const PlayPauseButton = ({ iconSize }) => {
     const { playing } = useIsPlaying()
@@ -29,5 +30,35 @@ export const SkipToPrevButton = ({ iconSize }) => {
         <TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToPrevious()}>
             <FontAwesome6 name="backward" size={iconSize} color="#fff"></FontAwesome6>
         </TouchableOpacity>
+    )
+}
+
+// export const PlayerRepeatToggle = ({ iconSize }) => {
+//     return (
+//         <TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToPrevious()}>
+//             <FontAwesome6 name="repeat" size={iconSize} color="#fff"></FontAwesome6>
+//         </TouchableOpacity>
+//     )
+// }
+
+
+
+export const PlayerShuffleToggle = ({ iconSize }) => {
+    return (
+        <TouchableOpacity activeOpacity={0.7} onPress={() => TrackPlayer.skipToPrevious()}>
+            <FontAwesome6 name="shuffle" size={iconSize} color="#fff"></FontAwesome6>
+        </TouchableOpacity>
+    )
+}
+
+export const PlayerControls = () => {
+    return (
+        <View className="w-full flex-row justify-between items-center">
+            <PlayerShuffleToggle iconSize={24} />
+            <SkipToPrevButton iconSize={24} />
+            <PlayPauseButton iconSize={36} />
+            <SkipToNextButton iconSize={24} />
+            <PlayerRepeatToggle iconSize={30} />
+        </View>
     )
 }
