@@ -5,10 +5,12 @@ import { AuthProvider } from './context/AuthContext';
 import { useSetupTrackPlayer } from './hooks/useSetupTrackPlayer';
 import { useLogTrackPlayerState } from './hooks/useLogTrackPlayerState';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 SplashScreen.preventAutoHideAsync();
 
 const RootLayout = () => {
+  const queryClient = new QueryClient()
   const [fontsLoaded, error] = useFonts({
     'Poppins-Black': require('./assets/fonts/Poppins-Black.ttf'),
     'Poppins-Bold': require('./assets/fonts/Poppins-Bold.ttf'),
@@ -45,25 +47,29 @@ const RootLayout = () => {
   }
 
   return (
-
-    <AuthProvider>
-      <GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
 
 
-        <Stack>
-          <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
-          <Stack.Screen name="(auth)" options={{ headerShown: false }}></Stack.Screen>
-          <Stack.Screen name="(tabs)" options={{ headerShown: false }}></Stack.Screen>
-          <Stack.Screen name='player' options={{
-            headerShown: false,
-            presentation: 'card',
-            gestureEnabled: true,
-            gestureDirection: 'vertical',
-            animationDuration: 400
-          }}></Stack.Screen>
-        </Stack>
-      </GestureHandlerRootView>
-    </AuthProvider>
+
+      <AuthProvider>
+        <GestureHandlerRootView>
+
+
+          <Stack>
+            <Stack.Screen name="index" options={{ headerShown: false }}></Stack.Screen>
+            <Stack.Screen name="(auth)" options={{ headerShown: false }}></Stack.Screen>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }}></Stack.Screen>
+            <Stack.Screen name='player' options={{
+              headerShown: false,
+              presentation: 'card',
+              gestureEnabled: true,
+              gestureDirection: 'vertical',
+              animationDuration: 400
+            }}></Stack.Screen>
+          </Stack>
+        </GestureHandlerRootView>
+      </AuthProvider>
+    </QueryClientProvider>
   );
 };
 

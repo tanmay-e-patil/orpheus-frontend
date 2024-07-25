@@ -4,17 +4,10 @@ import { Slider } from 'react-native-awesome-slider'
 import TrackPlayer, { useProgress } from 'react-native-track-player'
 import { useSharedValue } from 'react-native-reanimated'
 import { colors } from '../constants/colors'
+import { formatSecondsToMinutes } from '../helpers/timeConverter'
 
 
-const formatSecondsToMinutes = (seconds) => {
-    const minutes = Math.floor(seconds / 60)
-    const remainingSeconds = Math.floor(seconds % 60)
 
-    const formattedMinutes = String(minutes).padStart(2, '0')
-    const formattedSeconds = String(remainingSeconds).padStart(2, '0')
-
-    return `${formattedMinutes}:${formattedSeconds}`
-}
 
 const PlayerProgressBar = () => {
     const { duration, position } = useProgress(100)

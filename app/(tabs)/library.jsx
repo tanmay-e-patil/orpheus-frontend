@@ -8,6 +8,8 @@ import SearchInput from '../components/SearchInput';
 import { images } from '../constants';
 import SongCard from '../components/SongCard';
 import TrackPlayer, { useQueue } from 'react-native-track-player';
+import { CLIENT_ID, CLIENT_SECRET } from '@env';
+import ItemDivider from '../components/ItemDivider';
 
 const Library = () => {
   const [library, setLibrary] = useState([]);
@@ -86,7 +88,10 @@ const Library = () => {
 
               <View className="w-full flex-1 "></View>
             </View>
-          )} ListEmptyComponent={() => (<EmptyState title="No Songs Found"
+          )}
+          ItemSeparatorComponent={() => (<ItemDivider></ItemDivider>)}
+
+          ListEmptyComponent={() => (<EmptyState title="No Songs Found"
             subtitle="Add music via the explore tab."></EmptyState>)}
           refreshControl={<RefreshControl refreshing={refreshing}
             onRefresh={onRefresh}></RefreshControl>}>

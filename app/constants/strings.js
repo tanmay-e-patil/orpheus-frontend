@@ -1,7 +1,7 @@
 export const APP_NAME = 'Orpheus';
-
+export const YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/"
 export const BASE_URL = "http://10.0.0.162:8080";
-// export const BASE_URL = 'http://10.80.5.59:8080';
+// export const BASE_URL = 'http://10.80.2.124:8080';
 export const SIGN_UP_API_URL = BASE_URL + '/v1/users';
 export const LOGIN_API_URL = BASE_URL + '/v1/users/login';
 export const ME_API_URL = BASE_URL + '/v1/users/me';
