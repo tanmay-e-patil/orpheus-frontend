@@ -14,7 +14,6 @@ import { iso8601DurationToString } from "../helpers/timeConverter";
 import { useQuery } from "@tanstack/react-query";
 import { getContentDetails, searchYoutube } from "../api/yt_search";
 import Loader from "./Loader";
-import CustomButton from "./CustomButton";
 import AntDesign from "@expo/vector-icons/AntDesign";
 export const AudioSourceModal = ({
   song,
@@ -65,7 +64,6 @@ export const AudioSourceModal = ({
     );
   }
 
-  //TODO: Call yt v3 api to get content details
   const getSongDuration = (videoId) => {
     const video = ytVideosContentDetails.data?.items.find(
       (i) => i.id === videoId
