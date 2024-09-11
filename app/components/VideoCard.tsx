@@ -16,7 +16,7 @@ const VideoCard = ({
         <Image
           source={{ uri: thumbnail }}
           className="w-full h-36 aspect-video"
-          resizeMode="contain"
+          resizeMode="cover"
         ></Image>
       </View>
       <View className="flex-col justify-start w-full rounded">
