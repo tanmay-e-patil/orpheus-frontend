@@ -1,5 +1,4 @@
 import { View, Text } from 'react-native'
-import React from 'react'
 import LoaderKit from "react-native-loader-kit"
 
 const Loader = () => {
