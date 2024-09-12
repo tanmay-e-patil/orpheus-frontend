@@ -1,7 +1,16 @@
 import { API_KEY } from "@env";
 import { YOUTUBE_BASE_URL } from "../constants/strings";
+import { QueryFunction } from "@tanstack/react-query";
+import {
+  YoutubeSearchAPIResponse,
+  YoutubeVideosListAPIResponse,
+} from "./YoutubeAPIResponseTypes";
 
-export const searchYoutube = async (query: string) => {
+export const searchYoutube: QueryFunction<
+  YoutubeSearchAPIResponse,
+  ["search_youtube", string]
+> = async ({ queryKey }) => {
+  const query = queryKey[1];
   const YOUTUBE_SEARCH_URL = YOUTUBE_BASE_URL + "search";
   console.log("Started yt search api");
   const response = await fetch(
@@ -14,7 +23,11 @@ export const searchYoutube = async (query: string) => {
   return searchData;
 };
 
-export const getContentDetails = async (videoIds: string) => {
+export const getContentDetails: QueryFunction<
+  YoutubeVideosListAPIResponse,
+  ["youtube_fetch_content_details", string]
+> = async ({ queryKey }) => {
+  const videoIds = queryKey[1];
   const YOUTUBE_VIDEO_DETAILS_URL = YOUTUBE_BASE_URL + "videos";
   console.log("Started yt videos api");
   const response = await fetch(

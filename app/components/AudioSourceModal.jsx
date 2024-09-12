@@ -29,8 +29,7 @@ export const AudioSourceModal = ({
 
   const youtubeSearch = useQuery({
     queryKey: ["search_youtube", query],
-    queryFn: () => searchYoutube(query),
-    staleTime: Infinity,
+    queryFn: searchYoutube,
     enabled: !!query,
   });
 
@@ -46,9 +45,8 @@ export const AudioSourceModal = ({
 
   const ytVideosContentDetails = useQuery({
     queryKey: ["youtube_fetch_content_details", videoIds],
-    queryFn: () => getContentDetails(videoIds),
+    queryFn: getContentDetails,
     enabled: !!videoIds,
-    staleTime: Infinity,
   });
 
   console.log("Youtbe search data received", youtubeSearch.data);
