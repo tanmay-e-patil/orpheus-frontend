@@ -1,14 +1,14 @@
-export const APP_NAME = 'Orpheus';
-export const YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/"
-export const BASE_URL = "http://10.0.0.162:8080";
+export const APP_NAME = "Orpheus";
+export const YOUTUBE_BASE_URL = "https://www.googleapis.com/youtube/v3/";
+export const BASE_URL = "http://10.0.0.123:8080";
 // export const BASE_URL = 'http://10.80.2.124:8080';
-export const SIGN_UP_API_URL = BASE_URL + '/v1/users';
-export const LOGIN_API_URL = BASE_URL + '/v1/users/login';
-export const ME_API_URL = BASE_URL + '/v1/users/me';
-export const SONGS_API_URL = BASE_URL + '/v1/songs';
+export const SIGN_UP_API_URL = BASE_URL + "/v1/users";
+export const LOGIN_API_URL = BASE_URL + "/v1/users/login";
+export const ME_API_URL = BASE_URL + "/v1/users/me";
+export const SONGS_API_URL = BASE_URL + "/v1/songs";
 
-export const ACCESS_TOKEN_KEY = 'access_jwt';
-export const REFRESH_TOKEN_KEY = 'refresh_jwt';
+export const ACCESS_TOKEN_KEY = "access_jwt";
+export const REFRESH_TOKEN_KEY = "refresh_jwt";
 
-export const LANDING_SLOGAN = 'Experience Music Like Never Before';
-export const LANDING_SLOGAN_DESC = 'Discover new music tailored to your taste';
+export const LANDING_SLOGAN = "Experience Music Like Never Before";
+export const LANDING_SLOGAN_DESC = "Discover new music tailored to your taste";
