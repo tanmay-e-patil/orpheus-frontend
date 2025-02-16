@@ -1,11 +1,13 @@
 // import { CLIENT_ID, CLIENT_SECRET } from "@env";
+const CLIENT_ID = process.env.CLIENT_ID;
+const CLIENT_SECRET = process.env.CLIENT_SECRET;
 
 export const searchSpotify = async (query) => {
-  const CLIENT_ID = process.env.CLIENT_ID;
   console.log("Query: ", query);
   console.log("CLIENT_ID: ", CLIENT_ID);
   console.log("CLIENT_SECRET: ", CLIENT_SECRET);
   const access_token_response = await getSpotifyToken();
+  console.log("access_token_response: ", access_token_response);
 
   const token = access_token_response?.access_token;
   const response = await fetch(
@@ -28,6 +30,7 @@ export const searchSpotify = async (query) => {
 };
 
 export const getSpotifyToken = async () => {
+  console.log("Getting access token");
   const response = await fetch("https://accounts.spotify.com/api/token", {
     method: "POST",
     headers: {

@@ -1,13 +1,10 @@
 import { FlatList, Text, TouchableOpacity, View } from "react-native";
 import React, { useEffect, useState } from "react";
 import VideoCard from "./VideoCard";
-// import { YOUTUBE_CONTENT_DETAILS_DATA } from "../constants/dummy_data/youtube_content_details_data";
-// import { YOUTUBE_SEARCH_DATA } from "../constants/dummy_data/youtube_search_data";
 import { iso8601DurationToString } from "../helpers/timeConverter";
 import { useQuery } from "@tanstack/react-query";
 import { getContentDetails, searchYoutube } from "../api/yt_search";
 import Loader from "./Loader";
-// import CustomButton from "./CustomButton";
 
 export const AudioSourceModal = ({
   song,
@@ -48,12 +45,12 @@ export const AudioSourceModal = ({
   console.log("Youtbe search data received", youtubeSearch.data);
 
   if (youtubeSearch.isLoading || ytVideosContentDetails.isLoading) {
-    return <Loader></Loader>;
+    return <Loader className="mx-auto my-auto"></Loader>;
   }
   if (youtubeSearch.error || ytVideosContentDetails.error) {
     return (
       <Text>
-        Error: {youtubeSearch.error.message || ytVideosContentDetails.error}
+        Error: {youtubeSearch.error?.message || ytVideosContentDetails.error}
       </Text>
     );
   }
@@ -66,9 +63,11 @@ export const AudioSourceModal = ({
     return video ? iso8601DurationToString(video.contentDetails.duration) : "";
   };
 
+  console.log("ytVideosContentDetails", ytVideosContentDetails.data);
+
   return (
     <View className="mx-2 mt-4">
-      {youtubeSearch.data?.items.length === 0 ? (
+      {!youtubeSearch.data ? (
         <View />
       ) : (
         <FlatList

@@ -16,7 +16,6 @@ import { AudioSourceModal } from "../components/AudioSourceModal";
 import ItemDivider from "../components/ItemDivider";
 import SearchInput from "../components/SearchInput";
 import { icons, images } from "../constants";
-// import { SPOTIFY_SEARCH_DATA } from '../constants/dummy_data/spotify_search_data';
 import { SONGS_API_URL } from "../constants/strings";
 
 const Explore = () => {
